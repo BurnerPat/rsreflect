@@ -9,6 +9,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class RSReflect<T> {
@@ -107,6 +109,16 @@ public class RSReflect<T> {
 				throw new ReflectionException("cannot cast from " + targetType.getName() + " to " + wrapper.getName());
 			}
 		}
+	}
+	
+	public List<T> mapAll(ResultSet resultSet) throws SQLException, ReflectionException {
+		LinkedList<T> list = new LinkedList<T>();
+		T obj = null;
+		
+		while ((obj = mapNext(resultSet)) != null) {
+			list.add(obj);
+		}
+		return list;
 	}
 	
 	public T mapNext(ResultSet resultSet) throws SQLException, ReflectionException {

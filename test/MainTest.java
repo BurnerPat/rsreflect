@@ -2,6 +2,7 @@ package com.burnerpat.rsreflect.test;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 import com.burnerpat.rsreflect.RSReflect;
 import com.mockrunner.mock.jdbc.MockResultSet;
@@ -28,10 +29,11 @@ public class MainTest  {
 		}
 		
 		try {
-			Bean obj = null;
 			RSReflect<Bean> reflect = new RSReflect<Bean>(Bean.class);
-			while ((obj = reflect.mapNext(resultSet)) != null) {
-				System.out.println(obj.toString());
+			List<Bean> list = reflect.mapAll(resultSet);
+			
+			for (Bean bean : list) {
+				System.out.println(bean.toString());
 			}
 		}
 		catch (Exception ex) {
