@@ -155,7 +155,37 @@ public class RSReflect<T> {
 					if (accessor instanceof Field) {
 						Field field = (Field)accessor;
 						try {
-							field.set(obj, field.getType().cast(TypeUtil.getValue(resultSet, i + 1)));
+							Class<?> type = field.getType();
+							Object value = TypeUtil.getValue(resultSet, i + 1);
+							if (!type.isPrimitive()) {
+								field.set(obj, type.cast(value));
+							}
+							else {
+								if (type.equals(boolean.class)) {
+									field.set(obj, ((Boolean)value).booleanValue());
+								} 
+								else if (type.equals(byte.class)) {
+									field.set(obj, ((Byte)value).byteValue());
+								} 
+								else if (type.equals(char.class)) {
+									field.set(obj, ((Character)value).charValue());
+								} 
+								else if (type.equals(double.class)) {
+									field.set(obj, ((Double)value).doubleValue());
+								}
+								else if (type.equals(float.class)) {
+									field.set(obj, ((Float)value).floatValue());
+								} 
+								else if (type.equals(int.class)) {
+									field.set(obj, ((Integer)value).intValue());
+								} 
+								else if (type.equals(long.class)) {
+									field.set(obj, ((Long)value).longValue());
+								} 
+								else if (type.equals(short.class)) {
+									field.set(obj, ((Short)value).shortValue());
+								} 
+							}
 						}
 						catch (IllegalAccessException ex) {
 							throw new ReflectionException("illegal access for field " + field.getName() + " of " + clazz.getName(), ex);

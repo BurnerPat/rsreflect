@@ -2,6 +2,7 @@ package com.burnerpat.rsreflect.test;
 
 public class Bean {
 	public String myString;
+	public int myInt;
 	private double myDouble;
 	private boolean myBoolean;
 	
@@ -20,6 +21,6 @@ public class Bean {
 	}
 	
 	public String toString() {
-		return "{myString = \"" + myString + "\"; myDouble = " + myDouble + "; myBoolean = " + myBoolean + "}";
+		return "{myString = \"" + myString + "\"; myInt = " + myInt + "; myDouble = " + myDouble + "; myBoolean = " + myBoolean + "}";
 	}
 }
